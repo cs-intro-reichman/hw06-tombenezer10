@@ -37,9 +37,9 @@ public class Runigram {
 		// System.out.println();
 		// print(imageOut);
 
-		Color blended = blend(new Color(100, 40, 100), new Color(200, 20, 40), 0.25);
-		System.out.println();
-		print(blended);
+		// Color blended = blend(new Color(100, 40, 100), new Color(200, 20, 40), 0.25);
+		// System.out.println();
+		// print(blended);
 	}
 
 	/**
@@ -187,11 +187,13 @@ public class Runigram {
 	 */
 	public static Color blend(Color c1, Color c2, double alpha) {
 		//// Replace the following statement with your code
-		int r = (int) (c1.getRed() * alpha) + (int) (c2.getRed() * (1 - alpha));
-		int g = (int) (c1.getGreen() * alpha) + (int) (c2.getGreen() * (1 - alpha));
-		int b = (int) (c1.getBlue() * alpha) + (int) (c2.getBlue() * (1 - alpha));
+		int r = (int) ((c1.getRed() * alpha) + (c2.getRed() * (1 - alpha)));
+		int g = (int) ((c1.getGreen() * alpha) + (c2.getGreen() * (1 - alpha)));
+		int b = (int) ((c1.getBlue() * alpha) + (c2.getBlue() * (1 - alpha)));
 
-		return new Color(r, g, b);
+		Color res = new Color(r, g, b);
+
+		return res;
 	}
 
 	/**
@@ -221,16 +223,15 @@ public class Runigram {
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
 		//// Replace this comment with your code
-		Color[][] res = new Color[source.length][source[0].length];
-		
+		// Color[][] res = new Color[source.length][source[0].length];
+
 		if (source.length != target.length || source[0].length != target[0].length) {
 			target = scaled(target, source[0].length, source.length);
-		} 
-		 	
+		}
+
 		for (int i = 0; i < n + 1; i++) {
-			res = blend(source, target, (n - i) / n);  
-			display(res);
-			StdDraw.pause(1000); 
+			display(blend(source, target, (double) (n - i) / (double) n));
+			StdDraw.pause(500);
 		}
 	}
 
